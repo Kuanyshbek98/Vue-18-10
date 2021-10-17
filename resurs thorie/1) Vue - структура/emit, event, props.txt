@@ -1,0 +1,80 @@
+<template>
+  <div>
+    <!-- <input
+      v-bind:value="searchText"
+      v-on:input="searchText = $event.target.value"
+    /> -->
+    <input v-model="searchText" />
+    <p>{{ searchText }}</p>
+    <p>{{ searchText2 }}</p>
+    <TodoItems v-on:input="searchErr($event)" v-bind:title="searchText" />
+  </div>
+</template>
+
+<script>
+import TodoItems from "@/components/TodoItems";
+export default {
+  name: "TodoItem",
+  data() {
+    return {
+      searchText: "kuanysh",
+      searchText2: "",
+    };
+  },
+  components: {
+    TodoItems,
+  },
+  methods: {
+    searchErr(mm) {
+       this.searchText2 =mm;
+      // console.log(mm)
+    },
+  },
+};
+</script>
+
+<style scoped></style>
+
+//-----------------------------------------------
+
+<template>
+  <div>
+    <h1>Todo22 {{ value }}</h1>
+
+    <input
+      v-bind:value="title"
+      v-on:input="$emit('input', $event.target.value)"
+    />
+  </div>
+</template>
+
+<script>
+export default {
+  props: ["title"],
+
+  //   title: {
+  //     type: String,
+  //     default: "",
+  //     required: true,
+  //   },
+  // },
+ //-------------------------------------
+
+// props: ["arr"],
+
+ 	// props: {
+   	   // value: {
+   	    //   type: Array,
+   	    //   default: null,
+   	    //  required: true,
+   	  // },
+        // },
+
+
+  data() {
+    return {
+      value: "",
+    };
+  },
+};
+</script>

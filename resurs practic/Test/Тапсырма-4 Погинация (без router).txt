@@ -1,0 +1,93 @@
+<template>
+  <div id="app">
+    <ul v-for="ulpost in EvenNumber(Num)" :key="ulpost.id">
+      <li
+        v-for="(post, i) in EvenLink(ulpost * 10, (ulpost - 1) * 10)"
+        :key="post.id"
+      >
+        {{ i + 1 }} - {{ "[" + post.id + "]" }} - {{ post.title }}
+      </li>
+    </ul>
+    <button @click="ClickButtonBack()">Back</button>
+    <button
+      v-for="pos in EvenButton(buttonNext, buttonBack)"
+      :key="pos.id"
+      @click="ClickButton(pos)"
+    >
+      {{ pos }}
+    </button>
+    <button @click="ClickButtonNext()">Next</button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "App",
+  data() {
+    return {
+      posts: [],
+      postes: [],
+      buttonNum: 10,
+      buttonNext: 3,
+      buttonBack: 1,
+      Num: 1,
+    };
+  },
+  async created() {
+    const res = await fetch(
+      "https://jsonplaceholder.typicode.com/posts?_limit=99"
+    );
+    const posts = await res.json();
+    this.posts = posts;
+    this.buttonNum = Math.ceil(this.posts.length / 10);
+  },
+
+  methods: {
+    EvenNumber(value) {
+      for (let i = 0; i < this.buttonNum; i++) {
+        this.postes[i] = i + 1;
+      }
+      return this.postes.filter(function(number) {
+        return number === value;
+      });
+    },
+    EvenLink(max, min) {
+      return this.posts.filter(function(number) {
+        return number.id <= max && number.id > min;
+      });
+    },
+    EvenButton(max, min) {
+      return this.postes.filter(function(number) {
+        return number <= max && number >= min;
+      });
+    },
+
+
+    
+    ClickButton(value) {
+      this.Num = value;
+    },
+    ClickButtonNext() {
+      if (this.buttonNext < this.buttonNum) {
+        this.buttonNext += 3;
+        this.buttonBack += 3;
+      }
+    },
+    ClickButtonBack() {
+      if (this.buttonBack > 3) {
+        this.buttonNext -= 3;
+        this.buttonBack -= 3;
+      }
+    },
+  },
+};
+</script>
+
+<style scoped>
+li {
+  padding: 5px;
+}
+button {
+  margin: 0px 5px;
+}
+</style>

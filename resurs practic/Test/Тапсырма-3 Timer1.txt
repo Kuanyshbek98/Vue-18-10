@@ -1,0 +1,106 @@
+<template>
+  <div>
+    <input type="date" v-model="message" @input="FunctionInput()" />
+    <button v-bind:disabled="booleanButton" @click="intervalClick()">
+      CreateDate
+    </button>
+    <p v-show="booleanText">
+      {{ messageDate }} : {{ messageHours }} : {{ messageMinut }} :
+      {{ messageSeconds }}
+    </p>
+  </div>
+</template>
+<script>
+export default {
+  name: "TodoItem",
+  data() {
+    return {
+      message: "",
+      messageHours: 24,
+      messageMinut: 60,
+      messageSeconds: 60,
+      messageDate: 0,
+      messageMonth: 0,
+      messageYear: 0,
+
+      booleanButton: false,
+      booleanText: false,
+      myInterval: -1,
+    };
+  },
+  methods: {
+    FunctionInput() {
+      // if (this.message !== "") {}
+      var arr = this.message.split("-").reverse();
+      var news = new Date();
+      this.messageYear = arr[2] - news.getFullYear();
+      this.messageMonth = arr[1] - news.getMonth() - 1;
+      this.messageDate = arr[0] - news.getDate() - 1;
+      this.messageHours = 23 - news.getHours();
+      this.messageMinut = 59 - news.getMinutes();
+      this.messageSeconds = 59 - news.getSeconds();
+
+      if (this.messageYear !== 0) {
+        //   this.messageMonth = this.messageMonth;
+        // } else {
+        this.messageMonth = this.messageYear * 12 - news.getMonth();
+        this.messageMonth += +arr[1];
+      }
+
+      if (this.messageMonth !== 0) {
+        //   this.messageDate = this.messageDate;
+        // } else {
+        this.messageDate = this.messageMonth * 31 - news.getDate();
+        this.messageDate += +arr[0];
+      }
+      if (
+        this.messageYear < 0 ||
+        this.messageMonth < 0 ||
+        this.messageDate < 0
+      ) {
+        this.booleanButton = true;
+        this.booleanText = false;
+      } else {
+        this.booleanButton = false;
+      }
+    },
+    intervalClick() {
+      this.messageDate = 1;
+      this.messageHours = 2;
+      this.messageMinut = 2;
+      this.messageSeconds = 5;
+
+      this.booleanText = true;
+      this.myInterval = setInterval(() => {
+        this.messageSeconds--;
+
+        if (this.messageSeconds < 0 && this.messageMinut >= 0) {
+          this.messageSeconds = 59;
+          // this.messageSeconds = 5;
+          this.messageMinut--;
+          if (this.messageMinut < 0 && this.messageHours >= 0) {
+            this.messageMinut = 59;
+            // this.messageMinut = 2;
+            this.messageHours--;
+            if (this.messageHours < 0 && this.messageDate >= 0) {
+              this.messageHours = 23;
+              // this.messageHours = 1;
+              this.messageDate--;
+            }
+          }
+        }
+        if (
+          this.messageDate <= 0 &&
+          this.messageHours <= 0 &&
+          this.messageMinut <= 0 &&
+          this.messageSeconds <= 0
+        ) {
+          clearInterval(this.myInterval);
+        }
+      }, 1000);
+    },
+  },
+};
+</script>
+
+<style scoped></style>

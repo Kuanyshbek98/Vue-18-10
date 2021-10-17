@@ -1,0 +1,120 @@
+body
+ul
+a
+button
+.main-select 
+.container 
+.input 
+.button
+.btn
+.select
+
+
+ShopMain
+.shop-page
+.container
+
+ProductTypes
+.product-types
+.product-types__title
+.product-types__items
+..items-slide
+.items-slide__item
+.items-slide__img
+.items-slide__text
+{.slide__active}
+
+ProductMenu
+.product-menu
+.product-menu__items
+.product-menu__item
+.product-menu__btn
+.product-menu__select
+
+ProductMain
+.product-main
+.product-main__wrapper
+.product-main__inner
+..inner-product
+.inner-product__img
+.inner-product__box
+.inner-product__title
+.inner-product__text
+.product-text
+.product-text__rating
+.product-text__img
+.product-text__text
+.inner-product__button
+
+
+PartnerClients
+.partners-bLock
+.partners-bLock__title
+.partners-bLock__slider
+.partners-bLock__items
+.partners-bLock__item
+.partners-bLock__img
+
+DetailBlock
+.detail-block
+
+DetailPicture 
+.detail-picture__imgGlobal 
+.swiper-slide
+.hiddenImg
+.visible
+..visible__img
+.visible__slaider
+.visible__btn 
+
+
+DetailInfo
+.detail-info
+.detail-info__block
+.detail-info__strong
+.detail-info__strong-red
+.detail-info__title
+.detail-info__text
+.detail-info__btn
+..detail-btn
+.detail-btn__shoise
+.detail-btn__strike
+.detail-btn__block
+#detail-btn__button
+
+DetailSalesman
+.detail-salesman
+.detail-salesman__title
+.detail-salesman__wrapper
+.detail-salesman__inner
+  ..inner-info
+.inner-info__item
+  ..item-slogan
+     .item-slogan__box
+     .item-slogan__icon
+     .item-slogan__text
+     .item-slogan__logo
+
+  ..item-tel
+     .item-tel__img
+     .item-tel__tel
+        ..tel-info
+           .tel-info__text
+
+
+BasketOrders
+basket
+
+BasketBenefit
+.benefit-service
+.benefit-service__wrapper 
+.benefit-service__wrapper_block
+.benefit-service__title
+.benefit-service__inner
+    ..inner-service
+    .inner-service__block
+    .inner-service__img
+    .inner-service__desc
+    .inner-service__text
+ 
+BasketOrders

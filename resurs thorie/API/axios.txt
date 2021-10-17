@@ -1,0 +1,71 @@
+axios
+      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+      .then(response => (this.info = response));
+
+axios
+  .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+  .then(response => (this.info = response.data.bpi));
+
+//---------------------------------------------------
+
+axios
+  .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+  .then(response => (this.info = response.data.bpi))
+  .catch(error => console.log(error));
+
+axios
+      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+      .then(response => {
+        this.info = response.data.bpi;
+      })
+      .catch(error => {
+        console.log(error);
+        this.errored = true;
+      })
+      .finally(() => (this.loading = false)); ???
+  }
+
+
+// axios
+    //   .post("http://185.111.106.28/api/v1/product/filter", formData)
+    //   .then((response) => {
+    //     this.info = response.data.bpi;
+    //     // console.log(response);
+    //   })
+    //   .catch((error) => console.log(error));
+    //-------------------------------------------------------
+    // let formData = new FormData()
+    //     for (let i = 0; i < 10; i++) {
+    //       formData.append(countries[${i}], 'Франция')
+    //     }
+    //     this.$api.post('/product/filter', formData)
+
+
+
+//---------------------------------------------------
+
+
+async created() {
+    const res = await fetch("http://185.111.106.28/api/v1/user/edit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // credentials: "include",
+      body: JSON.stringify({
+        image: "@/assets/img/club.png",
+      }),
+    });
+    this.images = await res.json();
+    // console.log(this.imag);
+    //---------------------------------------------------
+    // let formData = new FormData();
+    // formData.append("cat_id", 1);
+    // axios
+    //   .post("http://37.46.133.192:8094/api/v1/product/filter", formData)
+    //   .then((response) => {
+    //     this.info = response.data.bpi;
+    //     console.log(response.data);
+    //   })
+    //   .catch((error) => console.log(error));
+  },

@@ -1,0 +1,83 @@
+ <template>
+  <div>
+    <h1>Timer</h1>
+    <p>
+      {{ messageDate }} : {{ messageHours }} : {{ messageMinut }} :
+      {{ messageSeconds }}
+    </p>
+    <input
+      type="date"
+      v-bind:min="dateControl"
+      v-model="message"
+      @input="FunctionTimer"
+      v-on:click="dataContr()"
+    />
+    <table>
+      <alert-box>
+        Произошло что-то плохое.
+      </alert-box>
+    </table>
+  </div>
+</template>
+
+<script>
+import AlertBox from "@/components/TodoItems";
+export default {
+  name: "TodoItem",
+  data() {
+    return {
+      message: "",
+      messageDate: 0,
+      messageHours: 0,
+      messageMinut: 0,
+      messageSeconds: 0,
+      dateControl: "",
+      //stop: "",
+    };
+  },
+  components: {
+    AlertBox,
+  },
+  methods: {
+    FunctionInput() {
+      var arr = this.message.split("-").reverse();
+      var news1 = new Date(arr[2], arr[1] - 1, arr[0]);
+      var news2 = new Date();
+      var secont = Date.parse(news1) - Date.parse(news2);
+      // this.stop = secont / 1000 - 33350;
+      // console.log(this.stop);
+      this.messageDate = Math.floor(secont / 1000 / 60 / 60 / 24);
+      this.messageHours = Math.floor(secont / 1000 / 60 / 60) % 24;
+      this.messageMinut = Math.floor(secont / 1000 / 60) % 60;
+      this.messageSeconds = Math.floor(secont / 1000) % 60;
+    },
+    FunctionTimer() {
+      this.myInterval = setInterval(() => {
+        this.FunctionInput();
+        if (
+          this.messageDate <= 0 &&
+          this.messageHours <= 0 &&
+          this.messageMinut <= 0 &&
+          this.messageSeconds <= 0
+        ) {
+          clearInterval(this.myInterval);
+        }
+        // if (this.stop <= 0) {
+        //   clearInterval(this.myInterval);
+        // }
+      }, 1000);
+    },
+    dataContr() {
+      var news = new Date();
+      var year = news.getFullYear();
+      var month = news.getMonth();
+      var date = news.getDate();
+      month += 1;
+      date += 1;
+      if (month < 10) month = "0" + month;
+      if (date < 10) date = "0" + date;
+      this.dateControl = year + "-" + month + "-" + date;
+    },
+  },
+};
+</script>

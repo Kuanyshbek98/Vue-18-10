@@ -1,0 +1,46 @@
+<template>
+  <div :style="{ fontSize: postFontSize + 'px' }">
+    <h1>Todo</h1>
+    <!-- <TodoItems v-on:enlarge-text="postFontSize += $event" /> -->
+    <TodoItems v-on:enlarge-text="onEnlargeText" />
+  </div>
+</template>
+ 
+<script>
+import TodoItems from "@/components/TodoItems";
+export default {
+  name: "TodoItem",
+  props: ["value"],
+  data() {
+    return {
+      postFontSize: 12,
+    };
+  },
+  components: {
+    TodoItems,
+  },
+  methods: {
+    onEnlargeText(enlargeAmount) {
+      this.postFontSize += enlargeAmount;
+    },
+  },
+};
+</script>
+
+<style scoped></style>
+
+
+\\---------------------------------------------------------------
+<template>
+  <div>
+    <h1>Todo22</h1>
+
+    <button v-on:click="$emit('enlarge-text',1)">
+    <!-- <button v-on:click="$emit('enlarge-text')">  -->
+      Enlarge text
+    </button>
+
+  </div>
+</template>
+
+

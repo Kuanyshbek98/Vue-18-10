@@ -1,0 +1,139 @@
+<template>
+  <div id="app">
+    <p style=" background-color:  rgb(222 216 216); width: 20%;">
+      {{ messagePlus }}
+    </p>
+    <input type="text" v-model="message" />
+    <div class="box">
+      <button v-on:click="backspace(23)">
+        ---
+      </button>
+      <button v-on:click="clear(-1)">C</button>
+      <button v-on:click="operation('%')">%</button>
+      <button v-on:click="operation('/')">/</button>
+      <button v-on:click="number('9')">9</button>
+      <button v-on:click="number('8')">8</button>
+      <button v-on:click="number('7')">7</button>
+      <button v-on:click="operation('*')">*</button>
+      <button v-on:click="number('6')">6</button>
+      <button v-on:click="number('5')">5</button>
+      <button v-on:click="number('4')">4</button>
+      <button v-on:click="operation('+')">+</button>
+      <button v-on:click="number('3')">3</button>
+      <button v-on:click="number('2')">2</button>
+      <button v-on:click="number('1')">1</button>
+      <button v-on:click="operation('-')">-</button>
+      <button v-on:click="number('0')" class="item">0</button>
+      <button v-on:click="number('.')">.</button>
+      <button v-on:click="result()">=</button>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  name: "TodoItem",
+  // ...
+  data() {
+    return {
+      message: "0",
+      messagePlus: "0",
+      num: "",
+      arr: [],
+      operations: true,
+    };
+  },
+  methods: {
+    backspace() {
+      this.message = this.message.slice(0, -1);
+      this.messagePlus = this.message;
+    },
+    clear() {
+      this.message = "0";
+      this.messagePlus = this.message;
+    },
+    operation(act) {
+      if (this.operations === true) {
+        this.num = act;
+        this.message += this.num;
+        this.messagePlus += this.num;
+        this.operations = false;
+      } else {
+        this.resultPlus();
+        var arr = this.message.split(this.num);
+        this.message = +arr[0];
+        for (var i = 1; i < arr.length; i++) {
+          arr[i] = +arr[i];
+          if (this.num === "+") {
+            this.message = +this.message + arr[i];
+          }
+          if (this.num === "-") {
+            this.message = +this.message - arr[i];
+          }
+          if (this.num === "*") {
+            this.message = +this.message * arr[i];
+          }
+          if (this.num === "/") {
+            this.message = +this.message / arr[i];
+          }
+        }
+        this.num = act;
+        this.message += this.num;
+        this.messagePlus += act;
+      }
+    },
+    resultPlus() {
+      console.log("hfdjhfkdf");
+    },
+    result() {
+      var arr = this.message.split(this.num);
+      this.message = +arr[0];
+      for (var i = 1; i < arr.length; i++) {
+        arr[i] = +arr[i];
+        if (this.num === "+") {
+          this.message = +this.message + arr[i];
+        }
+        if (this.num === "-") {
+          this.message = +this.message - arr[i];
+        }
+        if (this.num === "*") {
+          this.message = +this.message * arr[i];
+        }
+        if (this.num === "/") {
+          this.message = +this.message / arr[i];
+        }
+      }
+      this.messagePlus = this.message;
+      this.operations = true;
+    },
+
+    number(value) {
+      if (this.message === "0") {
+        this.message = value;
+        this.messagePlus = value;
+      } else {
+        this.message += value;
+        this.messagePlus += value;
+      }
+    },
+  },
+};
+</script>
+
+<style scoped>
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem;
+}
+.box {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+}
+.item:nth-child(17) {
+  grid-column: span 2;
+}
+</style>

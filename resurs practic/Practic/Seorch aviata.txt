@@ -1,0 +1,214 @@
+<template>
+  <div class="search">
+    <p :id="styles">{{ titles }}</p>
+    <p v-bind:id="styles">{{ styles }}</p>
+    <p>{{ value }} {{ filter | lowercarse | GlobalFilter }}</p> 
+    <p>{{ obje }} {{ FilterMassag }}</p>
+    <div class="container">
+      <div class="search__wrapper">
+        <div class="search__button">
+          <button v-on:click="titles = 'Kuanyshbek'" class="search__roundtrip">
+            ТУДА И ОБРАТНО
+          </button>
+          <button @mouseover="changeText" class="search__one-way">
+            В ОДНУ СТОРОНУ
+          </button>
+          <p v-if="show">Ipsum, dolor sit amet consectetur</p>
+          <p v-else>Lorem ipsum dolor sit amet.</p>
+          <p v-for="(car, index) in cars" :key="index">
+            {{ index + 1 }} - {{ car.model }}, скорость : {{ car.speed }}
+          </p>
+          <!-- <p v-show="show">Lorem ipsum dolor sit amet.</p> -->
+        </div>
+        <div class="search__choise">
+          <input
+            v-on:input="incriment($event.target.value)"
+            class="search_input"
+            type="text"
+            value="Алматы, Казахстан"
+          />
+          <img src="../assets/img/exchange.png" alt=" " />
+
+          <input
+            v-on:input="styles = $event.target.value"
+            class="search_input"
+            type="text"
+            value="Астана, Казахстан"
+          />
+          <div class="mobil-data">
+            <input
+              class="search_input search_input_d"
+              type="text"
+              value="08.11.2018"
+            />
+            <input
+              class="search_input search_input_d"
+              type="text"
+              value="16.11.2018"
+            />
+          </div>
+          <div class="input-data">
+            <input
+              class="search_input search_input_d"
+              type="text"
+              value="08.11.2018"
+            />
+            <input
+              class="search_input search_input_d"
+              type="text"
+              value="16.11.2018"
+            />
+          </div>
+          <select class="search_input">
+            <option selected="selected">Молодежный тариф</option>
+            <option>2 пассажира</option>
+          </select>
+          <button v-on:click="show = !show" class="search__choise_button">
+            Найти
+          </button>
+        </div>
+      </div>
+    </div>
+  <h1>{{msg}}</h1> 
+  </div> 
+</template>
+
+<script>
+// Vue.filter("GlobalFilter", function(value) {
+//   if (!value) return "";
+//   value = value.toString();
+//   return value.replace(/\b\w/g, function(l) {
+//     return l.toUpperCase();
+//   });
+// });
+
+export default {
+  name: "App",
+  props:["msg"],
+  data() {
+    return {
+      titles: "texts",
+      styles: "",
+      value: 1,
+      // obje: 1,
+      show: true,
+      filter: "Hello",
+      cars: [
+        { model: "BMW", speed: 250.8 },
+        { model: "Audi", speed: 240.21 },
+        { model: "Mers", speed: 350.4 },
+        { model: "Ford", speed: 160.5 },
+      ],
+    };
+  },
+  methods: {
+    changeText() {
+      this.titles = "Yergeh Kuanyshbek";
+    },
+    incriment(value) {
+      this.value = value;
+      if (value == 125) alert("hello 125");
+      // this.obje=value*3
+      // this.obje = this.value * 4;
+    },
+  },
+  computed: {
+    obje() {
+      return this.value * 4;
+    },
+    FilterMassag() {
+      return this.filter.toUpperCase();
+    },
+  },
+  filters: {
+    lowercarse(value) {
+      return value.toLowerCase();
+    },
+  },
+};
+</script>
+
+<style>
+/* --------------------------- */
+#yellow {
+  background-color: yellow;
+}
+#black {
+  background-color: black;
+}
+#blue {
+  background-color: blue;
+}
+#red {
+  background-color: red;
+}
+/* ------------------------------ */
+
+.search__wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 10px 10px 5px 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+.search__button {
+  padding: 5px;
+}
+.mobil__menu {
+  display: none;
+}
+.search_input {
+  height: 44px;
+  width: 18%;
+  padding: 10px;
+  background: #e5e5e5;
+  border: 1px solid #d9d9d9;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  font-family: Arial;
+  font-size: 16px;
+  line-height: 18px;
+}
+.input-data {
+  width: 24%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.search_input_d {
+  width: 47%;
+}
+.search__choise_button {
+  height: 40px;
+  width: 14%;
+  background: #55bb06;
+  color: #fff;
+  border-radius: 4px;
+}
+.search__choise {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+}
+.search__roundtrip {
+  font-family: Arial;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+  background-color: #fff;
+  border-bottom: 2px solid #55bb06;
+}
+.search__one-way {
+  font-family: Arial;
+  font-size: 14px;
+  line-height: 16px;
+  color: #888888;
+  background-color: #fff;
+  border-left: 1px solid #cccccc;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+</style>

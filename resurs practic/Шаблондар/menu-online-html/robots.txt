@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /contacts/
+Sitemap: https://www.neppe.kz/sitemap.xml
+
+User-agent: Yandex
+Disallow: /contacts/
+Host: www.neppe.kz
+Sitemap: https://www.neppe.kz/sitemap.xml
