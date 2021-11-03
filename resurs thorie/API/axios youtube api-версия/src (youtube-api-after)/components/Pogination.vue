@@ -8,38 +8,38 @@
     @before-close="close"
   >
     <form @submit.prevent="formSubmit">
-      <h3>{{ isSignInForm ? "Войти" : "Зарегистрироваться" }}</h3>
+      <h3>{{ isSignInForm ? "Р’РѕР№С‚Рё" : "Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ" }}</h3>
       <label>
         Email
         <input
           type="text"
           class="form-control"
-          placeholder="Ваша эл. почта"
+          placeholder="Р’Р°С€Р° СЌР». РїРѕС‡С‚Р°"
           v-model="form.email"
         />
       </label>
       <label>
-        Пароль
+        РџР°СЂРѕР»СЊ
         <input
           type="password"
           class="form-control"
-          placeholder="Ваш пароль"
+          placeholder="Р’Р°С€ РїР°СЂРѕР»СЊ"
           v-model="form.password"
         />
       </label>
       <div class="actions">
         <a href="#" @click.prevent="mode = isSignInForm ? 'signUp' : 'signIn'">
-          {{ isSignInForm ? "Регистрация" : "Вход" }}
+          {{ isSignInForm ? "Р РµРіРёСЃС‚СЂР°С†РёСЏ" : "Р’С…РѕРґ" }}
         </a>
         <button
           type="button"
           class="btn btn-outline-dark"
           @click="$emit('close')"
         >
-          Отмена
+          РћС‚РјРµРЅР°
         </button>
         <button type="submit" class="btn btn-dark">
-          Подтвердить
+          РџРѕРґС‚РІРµСЂРґРёС‚СЊ
         </button>
       </div>
     </form>
@@ -54,6 +54,7 @@ export default {
       form: {
         email: "",
         password: "",
+        login: "Yergesh98",
       },
       errors: [],
     };
@@ -62,9 +63,6 @@ export default {
     isSignInForm() {
       return this.mode === "signIn";
     },
-  },
-  mounted() {
-    // this.$modal.show("auth-modal");
   },
   methods: {
     changeUserState() {
@@ -86,76 +84,59 @@ export default {
         this.signUp();
       }
     },
-    async signIn() {
-      //   console.log(this.$api);
-      try {
-        const res = await fetch(
-          "https://jsonplaceholder.typicode.com/posts?_limit=3",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify({
-              email: this.form.email,
-              password: this.form.password,
-            }),
-          }
-        );
-        if (res.status === 200 || res.status === 201) {
-          //   localStorage.setItem("user".JSON.stringify(data));
-          const data = await res.json();
-          console.log(data);
-        } else {
-          //   this.errors = data;
-          console.log("error");
-        }
-      } catch (error) {
-        console.error(error);
-      }
 
-      // -------------------------------------------------------------
-      //   const res = await fetch(
-      //     "https://jsonplaceholder.typicode.com/posts?_limit=3",
-      //     {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       credentials: "include",
-      //       body: JSON.stringify({
-      //         email: this.form.email,
-      //         password: this.form.password,
-      //       }),
-      //     }
-      //   );
-      //   console.log(res);
-      // -------------------------------------------------------------
-      // this.$load(async () => {
+    async signIn() {
+      //-------------------4444444444-------axios-------------
+      // try {
       //   const data = (
       //     await this.$api.auth.signIn({
       //       email: this.form.email,
       //       password: this.form.password,
+      //           login: this.form.login,
       //     })
       //   ).data;
       //   localStorage.setItem("user", JSON.stringify(data));
       //   this.$store.dispatch("user/setUser", data);
       //   this.$emit("close");
-      // });
+      // } catch (error) {
+      //   console.log(error.response.data);
+      // }
+      //--------------------3333333333333-------axios---------------
+      // console.log(
+      //   await this.$api.auth.signIn({
+      //     email: this.form.email,
+      //     password: this.form.password,
+      //     login: this.form.login,
+      //   })
+      // );
+      // ----------55555555555--------axios--------error-----------
+      // signIn() {
+      this.$load(async () => {
+        const data = (
+          await this.$api.auth.signIn({
+            email: this.form.email,
+            password: this.form.password,
+          })
+        ).data;
+        console.log("signIn");
+        localStorage.setItem("user", JSON.stringify(data));
+        this.$store.dispatch("user/setUser", data);
+        this.$emit("close");
+      });
     },
     signUp() {
-      // this.$load(async () => {
-      //   const data = (
-      //     await this.$api.auth.signUp({
-      //       email: this.form.email,
-      //       password: this.form.password,
-      //     })
-      //   ).data;
-      //   localStorage.setItem("user", JSON.stringify(data));
-      //   this.$store.dispatch("user/setUser", data);
-      //   this.$emit("close");
-      // });
+      this.$load(async () => {
+        const data = (
+          await this.$api.auth.signUp({
+            email: this.form.email,
+            password: this.form.password,
+          })
+        ).data;
+        console.log(data);
+        localStorage.setItem("user", JSON.stringify(data));
+        // this.$store.dispatch("user/setUser", data);
+        // this.$emit("close");
+      });
     },
   },
 };
@@ -198,15 +179,4 @@ button {
   width: 130px;
   margin-left: 10px;
 }
-/* button:first-of-type {
-  margin-left: auto;
-}
-.actions {
-  margin-top: auto;
-  display: flex;
-  align-items: baseline;
-}
-.auth-modal {
-  padding: 30px 40px;
-} */
 </style>
